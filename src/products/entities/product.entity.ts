@@ -47,10 +47,12 @@ export class Product {
     checkSlugInsert() {
         if (!this.slug) {
             this.slug = this.title
-                .toLowerCase()
-                .replaceAll(' ', '_')
-                .replaceAll("'", '');
         }
+
+        this.slug = this.slug
+            .toLowerCase()
+            .replaceAll(' ', '_')
+            .replaceAll("'", '');
     }
 
     @BeforeUpdate()
