@@ -43,7 +43,12 @@ export class ProductsService {
     if (isUUID(term))
       product = await this.productRepository.findOneBy({ id: term });
     else
-      product = await this.productRepository.findOneBy({ slug: term });
+      product = await this.productRepository.createQueryBuilder()
+        .where('UPPER(title) =:title or slug =:slug', {
+          title: term.toUpperCase(),
+          slug: term.toLowerCase()
+        })
+        .getOne();
 
     if (!product)
       throw new NotFoundException(`Product with '${term}' not found`);
