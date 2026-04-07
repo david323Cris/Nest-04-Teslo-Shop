@@ -39,7 +39,12 @@ export class Product {
     @Column('text')
     gender: string;
 
-    // TODO: tags
+    @Column('text', {
+        array: true,
+        default: [],
+    })
+    tags: string[];
+
     // TODO: images
 
 
